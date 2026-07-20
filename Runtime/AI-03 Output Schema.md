@@ -8,10 +8,12 @@ Depends On
 
 • AI-01 Runtime
 • AI-02 Master Prompt
+• 13 – Learning Experience Specification (LES)
 • CKMS
 
 ------------------------------------------------------------
 # 1. Purpose
+
 
 This document defines the standard output structures used by CKLIS.
 
@@ -138,6 +140,12 @@ Output Type
 Creation Timestamp
 
 Quality Status
+
+Learning Experience ID (Optional)
+
+Representation
+
+Production Profile
 
 This metadata is hidden unless requested.
 
@@ -520,6 +528,12 @@ Schema Version
 Timestamp
 
 Quality Status
+
+Learning Experience ID (Optional)
+
+Representation
+
+Production Profile
 
 ------------------------------------------------------------
 # 23. Quality Report Schema

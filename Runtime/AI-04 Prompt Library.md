@@ -6,9 +6,12 @@ Status: Production
 
 Depends On
 
+Depends On
+
 • AI-01 Runtime
 • AI-02 Master Prompt
 • AI-03 Output Schema
+• 13 – Learning Experience Specification (LES)
 
 ------------------------------------------------------------
 # Purpose
@@ -224,13 +227,19 @@ Transform the educational model into the requested output format.
 Required Inputs
 
 • Episode Plan
+• Representation
 • Output Type
+• Production Profile (Optional)
 • Duration
 • Platform
 
 Instructions
 
-Generate the requested artifact while preserving educational integrity.
+Generate the requested artifact using the selected educational representation while preserving educational integrity.
+
+Apply the specified Production Profile when provided.
+
+Do not modify the instructional structure defined by the Episode Plan.
 
 Expected Output
 
@@ -241,6 +250,8 @@ Validation
 ✓ Matches requested format
 ✓ Complete
 ✓ Uses episode structure
+✓ Preserves the selected educational representation
+✓ Preserves instructional intent
 
 ------------------------------------------------------------
 PROMPT QUA-01

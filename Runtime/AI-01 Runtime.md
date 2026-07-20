@@ -173,25 +173,25 @@ Every output must pass validation.
 
 Required
 
-Topic
-
-Audience
+Educational Intent
 
 Desired Output
 
 Optional
 
+Audience
+
 Duration
 
-Language
+Programming Language
 
 Teaching Style
 
 Platform
 
-Curriculum
+Experience Hints
 
-Constraints
+Experience Constraints
 
 ------------------------------------------------------------
 
@@ -222,31 +222,44 @@ Any output supported by CKMS.
 # 9. Runtime Initialization
 
 STEP 1
-
-Create Runtime State.
+Create Runtime State
 
 STEP 2
-
-Record Timestamp.
+Record Timestamp
 
 STEP 3
-
-Load User Request.
+Load Learning Experience Request (LES)
 
 STEP 4
-
-Normalize Inputs.
+Validate LES
 
 STEP 5
+Resolve Defaults
 
-Validate Inputs.
+STEP 6
+Construct CKMS Execution Context
 
-IF validation fails
+STEP 7
+Validate Execution Context
 
 STOP.
 
 Request clarification.
+-----------------------------------------------------------
+# Educational Optimization
+Before educational engine execution begins, Runtime SHALL optimize the learning request.
 
+Optimization MAY include:
+
+• applying default values
+• resolving representation preferences
+• selecting accessibility profiles
+• resolving production preferences
+• identifying missing optional information
+
+Runtime SHALL NOT modify the learner's educational intent.
+
+Runtime SHALL preserve educational quality while performing optimization.
 ------------------------------------------------------------
 
 # 10. Load Specifications
@@ -254,45 +267,27 @@ Request clarification.
 Load in exact order.
 
 00 Project Charter
-
 ↓
-
 01 Constitution
-
 ↓
-
 02 Learning Science
-
 ↓
-
 03 Misconception Engine
-
 ↓
-
 04 Mental Model Engine
-
 ↓
-
 05 Scenario Intelligence Engine
-
 ↓
-
 06 Pattern Mapping Engine
-
 ↓
-
 07 Episode Generation Engine
-
 ↓
-
 08 Production Engine
-
 ↓
-
 09 Quality Engine
-
 ↓
-
+13 Learning Experience Specification (LES)
+↓
 11 CKMS
 
 No specification may be skipped.
@@ -438,17 +433,17 @@ RuntimeContext
 
 --------------------------------
 
-Request
+Learning Request
 
-Topic
+Educational Intent
 
-Audience
+Representation
 
-Language
+Experience Hints
 
-Duration
+Experience Constraints
 
-Learning Objectives
+Resolved Defaults
 
 --------------------------------
 
@@ -1742,10 +1737,30 @@ If Duration changes
 
 Recalculate Episode pacing.
 
+-------------------------------
+Decision Rule E
+
+If only representation preferences change
+
+↓
+
+Reuse Educational Analysis
+
+Reuse Episode
+
+Regenerate Production
+
+Re-run Quality
+
 ------------------------------------------------------------
 # 51. CKMS Integration
 
-The Runtime SHALL use CKMS as the system registry.
+Runtime SHALL interpret every Learning Experience Request using LES.
+
+After validation and optimization, Runtime SHALL construct the CKMS Execution Context.
+
+CKMS remains the canonical execution model consumed by the educational engines.
+
 
 CKMS provides
 
