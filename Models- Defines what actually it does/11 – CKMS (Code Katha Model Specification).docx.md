@@ -319,6 +319,10 @@ The audit trail SHOULD record:
 
 The audit trail SHALL enable reconstruction of the reasoning process without requiring access to undocumented implementation details.
 
+The Audit Log is a persistent execution record and is independent from the temporary Runtime Context. It SHALL preserve the complete structured context and execution details required for developers to identify who made the request and what occurred during execution. It MAY be stored as Markdown or JSON.
+
+Audit Log retention duration is intentionally unspecified for Version 2.
+
 ---
 
 # 12\. Error Handling

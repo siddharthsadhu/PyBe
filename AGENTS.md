@@ -186,12 +186,12 @@ No document shall be treated as optional.
 If multiple documents define related concepts, interpret them using the following precedence.
 
 1.
-Constitution
+Project Charter
 
 ↓
 
 2.
-Project Charter
+Constitution
 
 ↓
 
@@ -464,11 +464,15 @@ Every subsequent engine benefits from previous educational reasoning.
 
 ### Lifetime
 
-A Runtime Context exists only for one execution.
+The active Runtime Context exists only for the duration of a single execution. After the execution is fully completed—including all internal Quality iterations and production of both the Pipeline Outcome and Studio Outcome—the Runtime Context is destroyed.
 
 New learning requests always create new Runtime Contexts.
 
 Execution state must never leak between independent requests.
+
+The Audit Log is a separate persistent execution record. It preserves the complete structured context and execution details required for developer inspection and may be stored as Markdown or JSON.
+
+Runtime Context and Audit Log lifecycles are independent. Audit Log retention duration is intentionally unspecified for Version 2.
 
 ---
 

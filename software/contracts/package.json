@@ -1,0 +1,72 @@
+{
+  "name": "@cklis/contracts",
+  "version": "1.0.0",
+  "description": "CKLIS Version 2 domain contracts — framework-neutral and provider-neutral type definitions, Zod schemas, and infrastructure port interfaces.",
+  "license": "UNLICENSED",
+  "private": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    },
+    "./versions": {
+      "types": "./dist/versions/index.d.ts",
+      "require": "./dist/versions/index.js"
+    },
+    "./public-api": {
+      "types": "./dist/public-api/index.d.ts",
+      "require": "./dist/public-api/index.js"
+    },
+    "./les": {
+      "types": "./dist/les/index.d.ts",
+      "require": "./dist/les/index.js"
+    },
+    "./execution": {
+      "types": "./dist/execution/index.d.ts",
+      "require": "./dist/execution/index.js"
+    },
+    "./runtime-context": {
+      "types": "./dist/runtime-context/index.d.ts",
+      "require": "./dist/runtime-context/index.js"
+    },
+    "./engines": {
+      "types": "./dist/engines/index.d.ts",
+      "require": "./dist/engines/index.js"
+    },
+    "./artifacts": {
+      "types": "./dist/artifacts/index.d.ts",
+      "require": "./dist/artifacts/index.js"
+    },
+    "./outcomes": {
+      "types": "./dist/outcomes/index.d.ts",
+      "require": "./dist/outcomes/index.js"
+    },
+    "./quality": {
+      "types": "./dist/quality/index.d.ts",
+      "require": "./dist/quality/index.js"
+    },
+    "./ports": {
+      "types": "./dist/ports/index.d.ts",
+      "require": "./dist/ports/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "zod": "^3.24.0"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": false
+    }
+  }
+}

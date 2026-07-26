@@ -62,8 +62,8 @@ This specification shall be interpreted together with the official CKLIS documen
 
 Priority order:
 
-1. Constitution
-2. Project Charter
+1. Project Charter
+2. Constitution
 3. Learning Science
 4. Engine Specifications
 5. CKMS
@@ -1310,7 +1310,11 @@ The exact internal implementation is an engineering decision.
 
 ## Persistence
 
-The Runtime Context exists only for the lifetime of a learning generation unless future versions introduce persistent execution.
+The active Runtime Context exists only for the duration of a single execution. After the execution is fully completed—including all internal Quality iterations and production of both the Pipeline Outcome and Studio Outcome—the Runtime Context is destroyed.
+
+The Audit Log is a separate persistent execution record. It preserves the complete structured context and execution details required for developer inspection and may be stored as Markdown or JSON.
+
+Runtime Context and Audit Log lifecycles are independent. Audit Log retention duration is intentionally unspecified for Version 2.
 
 ---
 

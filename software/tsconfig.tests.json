@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@cklis/contracts": ["./contracts/src/index.ts"],
+      "@cklis/contracts/*": ["./contracts/src/*/index.ts"]
+    }
+  },
+  "include": ["tests/**/*.ts"],
+  "exclude": ["tests/architecture/fixtures/**/*.ts"]
+}

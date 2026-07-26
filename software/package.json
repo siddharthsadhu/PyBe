@@ -1,0 +1,29 @@
+{
+  "name": "cklis-v2",
+  "private": true,
+  "version": "0.0.0",
+  "description": "PyBe / CKLIS Version 2 — software implementation workspace (Architecture 2.0.0)",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=11.0.0"
+  },
+  "scripts": {
+    "typecheck": "pnpm --filter @cklis/contracts run typecheck && tsc --noEmit --project tsconfig.tests.json",
+    "test:contracts": "vitest run --reporter=verbose tests/contracts",
+    "test:architecture": "vitest run --reporter=verbose tests/architecture",
+    "test": "vitest run --reporter=verbose",
+    "build:contracts": "pnpm --filter @cklis/contracts run build",
+    "pack:contracts": "pnpm --filter @cklis/contracts pack --pack-destination /tmp",
+    "validate:pack": "node --input-type=module scripts/validate-pack.mjs"
+  },
+  "workspaces": [
+    "contracts"
+  ],
+  "devDependencies": {
+    "@cklis/contracts": "workspace:*",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4",
+    "zod": "^3.24.4"
+  }
+}

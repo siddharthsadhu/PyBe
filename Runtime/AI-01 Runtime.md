@@ -1292,13 +1292,17 @@ Previously validated engines remain unchanged.
 ------------------------------------------------------------
 # 38. Runtime Finalization
 
-After Quality PASS
+After all internal Quality iterations are complete and Quality reaches Q3 Full Approval
 
 Freeze Runtime Context.
 
-Generate requested artifact.
+Finalize Pipeline Outcome.
+
+Finalize Studio Outcome.
 
 Generate metadata.
+
+Write the persistent Audit Log.
 
 Record execution summary.
 
@@ -1309,32 +1313,38 @@ Mark execution COMPLETE.
 
 The Runtime returns
 
-Only requested outputs.
+Pipeline Outcome
+
+Studio Outcome
 
 Never expose
 
-Internal reasoning
-
-Intermediate engine outputs
+Raw internal reasoning
 
 Hidden runtime state
 
-Unless explicitly requested.
+Prompt construction details
+
+Engine communication logs
 
 ------------------------------------------------------------
 # 40. Runtime Shutdown
 
+The active Runtime Context exists only for the duration of a single execution.
+
+After the execution is fully completed and both the Pipeline Outcome and Studio Outcome have been produced
+
+Destroy the Runtime Context.
+
 Clear temporary execution memory.
 
-Preserve
+The Audit Log is a separate persistent execution record.
 
-Execution Summary
+It SHALL preserve the complete structured context and execution details required for developers to identify who made the request and what occurred during execution.
 
-Revision Count
+The Audit Log MAY be stored as Markdown or JSON.
 
-Quality Report
-
-Statistics
+Audit Log retention duration is intentionally unspecified for Version 2.
 
 Mark Runtime
 
@@ -1884,15 +1894,15 @@ When specifications conflict
 
 Priority Order
 
-1. Constitution
+1. Project Charter
 
-2. Project Charter
+2. Constitution
 
 3. Learning Science
 
-4. CKMS
+4. Engine Specifications
 
-5. Engine Specifications
+5. CKMS
 
 6. Runtime Defaults
 
