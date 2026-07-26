@@ -6,12 +6,21 @@ export default defineConfig({
     globals: false,
     include: ["tests/**/*.test.ts"],
     exclude: ["tests/architecture/fixtures/**"],
-    reporter: ["verbose"],
+    reporters: ["verbose"],
   },
   resolve: {
-    alias: {
-      // Use source directly so tests run without building first
-      "@cklis/contracts": resolve(__dirname, "contracts/src/index.ts"),
-    },
+    // Use source directly so tests run without building first.
+    alias: [
+      // Subpath imports: @cklis/contracts/public-api -> contracts/src/public-api/index.ts
+      {
+        find: /^@cklis\/contracts\/(.*)$/,
+        replacement: resolve(__dirname, "contracts/src/$1/index.ts"),
+      },
+      // Bare import: @cklis/contracts -> contracts/src/index.ts
+      {
+        find: /^@cklis\/contracts$/,
+        replacement: resolve(__dirname, "contracts/src/index.ts"),
+      },
+    ],
   },
 });

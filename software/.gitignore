@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Packed artifacts
+*.tgz
+
+# Test/coverage output
+coverage/
+
+# Local env (never commit secrets)
+.env
+.env.*

@@ -2,11 +2,19 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "noEmit": true,
+    // Vitest 3 / Vite 7 ship ESM-only type declarations that require modern
+    // module resolution. The tests project therefore overrides the CommonJS/Node
+    // settings the published contracts package builds with. skipLibCheck avoids
+    // type-checking third-party (vite/rollup) declaration internals.
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "skipLibCheck": true,
+    "types": ["node"],
     "paths": {
       "@cklis/contracts": ["./contracts/src/index.ts"],
       "@cklis/contracts/*": ["./contracts/src/*/index.ts"]
     }
   },
-  "include": ["tests/**/*.ts"],
+  "include": ["tests/**/*.ts", "vitest.config.ts"],
   "exclude": ["tests/architecture/fixtures/**/*.ts"]
 }
