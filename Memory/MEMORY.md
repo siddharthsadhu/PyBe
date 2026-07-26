@@ -1,0 +1,3 @@
+- [CKLIS ambiguity-resolution process](cklis_decision_process.md) — Minimize spec changes; separate product choices from Runtime flexibility.
+- [CKLIS Version 2 product decisions](cklis_v2_product_decisions.md) — Branding, retention, dual outputs, Studio formats, Q3, Improve, Regenerate.
+- [CKLIS Version 2 implementation handoff](cklis_v2_implementation_handoff.md) — Frozen architecture, control docs, resume protocol, and current baseline.
