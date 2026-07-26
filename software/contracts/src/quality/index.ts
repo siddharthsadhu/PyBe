@@ -25,7 +25,7 @@
  */
 
 import { z } from "zod";
-import { QLevelSchema, ArtifactTypeSchema } from "../artifacts/index.js";
+import { QLevelSchema, ArtifactTypeSchema, type QLevel } from "../artifacts/index.js";
 
 // Re-export Q-level types for convenience
 export { QLevelSchema, Q_LEVEL_VALUES, isDeliverable, requiresRevision } from "../artifacts/index.js";
@@ -169,8 +169,6 @@ export function determineQLevelFromFindings(
   if (blocking.some((f) => f.severity === "minor")) return "Q2";
   return "Q3";
 }
-
-export type FailureSeverity = z.infer<typeof FailureSeveritySchema>;
 
 // ---------------------------------------------------------------------------
 // Structured Feedback Request

@@ -14,11 +14,8 @@
     "test": "vitest run --reporter=verbose",
     "build:contracts": "pnpm --filter @cklis/contracts run build",
     "pack:contracts": "pnpm --filter @cklis/contracts pack --pack-destination /tmp",
-    "validate:pack": "node --input-type=module scripts/validate-pack.mjs"
+    "validate:pack": "node scripts/validate-pack.mjs"
   },
-  "workspaces": [
-    "contracts"
-  ],
   "devDependencies": {
     "@cklis/contracts": "workspace:*",
     "@types/node": "^24.0.0",

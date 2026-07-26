@@ -1,0 +1,6 @@
+packages:
+  - "contracts"
+
+# esbuild is a build dependency of Vitest; allow its install script to run.
+allowBuilds:
+  esbuild: true

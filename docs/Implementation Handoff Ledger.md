@@ -45,12 +45,12 @@
 
 | Item | Value |
 |---|---|
-| Implementation begun | Yes — M01 started 2026-07-26 |
-| Current milestone | M01 — Contract and Repository Foundation |
+| Implementation begun | Yes — M01 started 2026-07-26, completed & verified 2026-07-27 |
+| Current milestone | M02 — Execution Storage and Operational Foundation (not started) |
 | Next milestone after verification | M02 — Execution Storage and Operational Foundation |
 | Current blocker | None |
-| `software/` directory exists | Pending M01 creation |
-| Any contracts published | No |
+| `software/` directory exists | Yes — full skeleton per Architecture §2 |
+| Any contracts published | Yes — `@cklis/contracts@1.0.0` built and pack-validated in isolated step |
 | Any adapters deployed | No |
 | Any engines implemented | No |
 | Backend API deployed | No |
@@ -156,8 +156,8 @@ Legend: `Not Started` | `In Progress` | `Complete — Unverified` | `Complete �
 
 | Milestone | Name | Status | Artifact Version | Test Evidence | Review | Deployment | Completed Date | Notes |
 |---|---|---|---|---|---|---|---|---|
-| M01 | Contract and Repository Foundation | In Progress | — | Pending | Pending | Pending | — | Started 2026-07-26 |
-| M02 | Execution Storage and Operational Foundation | Not Started | — | — | — | — | — | — |
+| M01 | Contract and Repository Foundation | Complete — Verified | contracts 1.0.0 | 84/84 pass (Vitest) | Pass | Packed + validated (isolated) | 2026-07-27 | typecheck clean; arch checks reject intentional violation |
+| M02 | Execution Storage and Operational Foundation | Not Started | — | — | — | — | — | Next up; prerequisites (M01) satisfied |
 | M03 | AI, Knowledge, and Prompt Boundary | Not Started | — | — | — | — | — | — |
 | M04 | Quality Engine Foundation | Not Started | — | — | — | — | — | — |
 | M05 | Runtime Intake, LES, and RuntimeContext | Not Started | — | — | — | — | — | — |
@@ -228,33 +228,47 @@ Completed: [YYYY-MM-DD or —]
 
 ---
 ### M01 — Contract and Repository Foundation
-Status: In Progress
+Status: Complete — Verified
 Started: 2026-07-26
-Completed: —
+Completed: 2026-07-27
 
 **Artifact versions produced:**
-- Pending implementation and verification.
+- `@cklis/contracts`: 1.0.0 (framework/provider-neutral TypeScript + Zod contracts).
+- Modules: `versions`, `public-api`, `les`, `execution`, `runtime-context`, `engines`, `artifacts`, `outcomes`, `quality`, `ports` (+ package barrel `src/index.ts`).
+- Full `software/` folder skeleton per Architecture §2 (apps, contracts, runtime, engines, production, quality, infrastructure, tests) with placeholder markers.
+- Traceability matrix: `software/contracts/TRACEABILITY.md`.
+- Architecture-check runner: `software/tests/architecture/dependency-direction.test.ts` (+ intentional-violation fixture).
+- Deployment validation probe: `software/scripts/validate-pack.mjs`.
 
 **Test evidence:**
-- Pending.
+- Vitest: 84/84 passing across 10 files (`tests/contracts/*` + `tests/architecture/*`) — run 2026-07-27, Node v24.18.0, environment: local dev sandbox.
+- `pnpm run typecheck`: clean (contracts strict build config + tests config).
+- Coverage of required M01 failure cases: version-compatibility rejection; unsupported Studio format rejection (LES + public-api); prohibited-field absence on public schemas; Q2 finalized-envelope rejection (`preFinalizationCheck`) + Studio↔Pipeline trace-linkage mismatch rejection; illegal state-transition rejection; intentional prohibited-import detected by the architecture checker.
 
 **Specification compliance evidence:**
-- Pending.
+- Contract-to-specification traceability recorded in `TRACEABILITY.md` (each module → frozen Architecture § + source spec doc), and frozen invariants mapped to their enforcing contract/test.
+- CKLIS Validation Suite v2.0 educational-behaviour sections apply to engines/pipeline (M06+); they are not exercisable at the contract-foundation layer. No engine/pipeline compliance claimed for M01.
 
 **Review evidence:**
-- Pending.
+- Reviewer: AI agent (a2's momo), 2026-07-27.
+- Focus (M01): every frozen architectural boundary represented by a contract; no implicit contract; no framework/provider detail leaks into domain contracts; traceability matrix complete; dependency checks reject ≥1 intentional violation.
+- Outcome: Pass. Notes: fixed two pre-existing typecheck defects in the scaffolded `quality` contract (duplicate `FailureSeverity` type; `QLevel` not imported into local scope) — editorial/implementation fixes within the frozen contract surface, no interface change, no Evolution Engine referral required.
 
 **Deployment record:**
-- Pending.
+- Environment: isolated integration (local pack).
+- `pnpm run build:contracts` emits `contracts/dist` (JS + `.d.ts` + maps) for all modules including `ports`.
+- `pnpm run validate:pack`: OK — packed `@cklis/contracts@1.0.0` tarball; entry points and `./ports` export verified. Date: 2026-07-27.
 
 **Decisions made during this milestone:**
-- D-001: TypeScript monorepo toolchain for the implementation foundation.
+- D-001: TypeScript monorepo toolchain for the implementation foundation (Accepted).
+- D-002: Contracts package barrel namespaces the modules that re-export shared symbols (les, execution, engines, outcomes, quality, runtime-context) to avoid star-export collisions; owning modules (versions, public-api, artifacts, ports) are exported flat. Interpretation-level, no architecture impact.
 
 **Blockers encountered:**
 - None.
 
 **Handoff notes for next milestone:**
-- M01 is currently in progress. Do not begin M02 until M01 is Complete — Verified.
+- M01 is Complete — Verified. M02 (Execution Storage and Operational Foundation) may begin; it implements the Identifier, Clock, Active Context, Final Outcome, Audit Log, Progress, and Diagnostics ports defined in `contracts/src/ports/` (AI/Knowledge/Prompt ports are M03). Consume the published contract interfaces without modification (additions require a version bump per Playbook §8.2).
+- Toolchain to reuse: pnpm workspace under `software/`; `pnpm test`, `pnpm run typecheck`, `pnpm run build:contracts`, `pnpm run validate:pack`.
 ---
 
 ---
@@ -271,8 +285,8 @@ Record the version of every component as it is published. This table is the sing
 | Ledger | 1.0.0 | `Implementation Handoff Ledger.md` | — |
 | AI Continuation Protocol | 1.0.0 | `AI Continuation Protocol.md` | Active |
 | CKLIS Validation Suite | 2.0.0 | `CKLIS Validation Suite v2.0.md` | Frozen |
-| Contract package | — | `software/contracts/` | Not yet published |
-| Architecture check runner | — | `software/tests/architecture/` | Not yet published |
+| Contract package | 1.0.0 | `software/contracts/` | Built + pack-validated (isolated) 2026-07-27 |
+| Architecture check runner | 1.0.0 | `software/tests/architecture/` | Passing; rejects intentional violation |
 | Infrastructure adapters | — | `software/infrastructure/` | Not yet published |
 | AI Reasoning adapter | — | `software/infrastructure/ai-provider/` | Not yet published |
 | Knowledge Resource adapter | — | `software/infrastructure/knowledge-resources/` | Not yet published |
@@ -338,6 +352,19 @@ Use the template below for each entry.
 ---
 
 ---
+**Decision ID:** D-002
+**Date:** 2026-07-27
+**Milestone:** M01
+**Category:** Interpretation
+**Decision:** The `@cklis/contracts` package barrel (`src/index.ts`) exposes modules that re-export shared symbols (les, execution, engines, outcomes, quality, runtime-context) under namespaces, while owning modules (versions, public-api, artifacts, ports) are exported flat.
+**Rationale:** Several modules legitimately re-export shared symbols (e.g. `StudioFormat` from public-api into les; `Q3ApprovalSummary` in both public-api and quality). A flat star-export barrel would create ambiguous export collisions. Namespacing preserves a single published entry point without renaming any contract.
+**Alternatives considered:** Flat re-export with explicit per-symbol exports (verbose, fragile to future additions); no barrel at all (breaks the package `main` and test alias).
+**Impact:** Consumers import shared symbols from either the owning module subpath or the namespace; no contract interface changed.
+**Evolution Engine required?** No
+**Status:** Accepted
+---
+
+---
 
 ## 9. Blockers and Risks Table
 
@@ -388,16 +415,21 @@ Secrets, actual values, tokens, and credentials must never appear in this table 
 Update this section at the end of every work session. Overwrite the previous entry.
 
 ```
-Date: 2026-07-26
-Agent / engineer: hj's momo
+Date: 2026-07-27
+Agent / engineer: a2's momo
 Milestone worked: M01 — Contract and Repository Foundation
 Work performed:
-  - Created AI Continuation Protocol Version 1.0.0 for model/tool switching and limit recovery.
-  - Began M01 and recorded implementation toolchain decision D-001.
-  - M01 implementation, tests, review, and deployment validation are in progress.
-Milestone status at end of current checkpoint: M01 In Progress; M02–M21 Not Started.
-Next action required: Complete and verify M01 exactly as defined in Playbook Section 15.
-Open items: M01 artifact, tests, review, and deployment evidence are pending.
+  - Completed the full software/ folder skeleton per Architecture §2.
+  - Added the missing ports contract module (10 infrastructure ports) and the package barrel.
+  - Fixed two pre-existing typecheck defects in the scaffolded quality contract (no interface change).
+  - Authored contract tests (tests/contracts/*) and the architecture dependency-direction check with an intentional-violation fixture (tests/architecture/*).
+  - Produced the specification-to-contract traceability matrix (contracts/TRACEABILITY.md).
+  - Set up the pnpm workspace, built the contract package, and added + ran the pack-validation deployment probe.
+  - Verified: pnpm typecheck clean; Vitest 84/84 passing; build emits all modules incl. ports; validate:pack OK.
+  - Recorded decision D-002; updated this ledger (status table, M01 detail record, version registry).
+Milestone status at end of current checkpoint: M01 Complete — Verified; M02–M21 Not Started.
+Next action required: Begin M02 — Execution Storage and Operational Foundation (Playbook Section M02). Implement Identifier, Clock, Active Context, Final Outcome, Audit Log, Progress, Diagnostics adapters against the M01 ports.
+Open items: None for M01. A GitHub Conventional Commit / PR for M01 is being raised before M02 begins.
 ```
 
 ---
